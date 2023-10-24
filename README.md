@@ -21,7 +21,7 @@ Jerry Pittman, MBA, PMP - Naval Submarine Officer and USNA Instructor
 
   ```
 
-## Build & Run ROS2 Package Instructions
+## Build & Run ROS2 Package Instructions (Using ros2 run)
 
 ```bash
 # Build the code:
@@ -35,7 +35,29 @@ Jerry Pittman, MBA, PMP - Naval Submarine Officer and USNA Instructor
 #Terminal 2:
     source install/setup.bash
     ros2 run beginner_tutorials talker
+```
 
+## Service/Client to Change String in Talker
+```bash
+#Terminal 3: 
+    ros2 service call /change_string beginner_tutorials/srv/ChangeString "{after: <new_string>}"
+```
+
+## Run ROS2 Package Instructions Using Launch files
+
+* `message` *#the new message to be published*
+
+* `message_freq` *#time between successive messages in ms*
+
+
+To do this, execute the following command:
+```
+ros2 launch beginner_tutorials _launch.py message:=<desired_message> message_freq:=<desired_message_frequency>
+```
+
+## Running rqt_console
+```
+ros2 run rqt_console rqt_console
 ```
 
 ## Clang format for Google, cpplint, and cppcheck Instructions
