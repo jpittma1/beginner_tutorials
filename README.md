@@ -55,6 +55,11 @@ To do this, execute the following command:
 ros2 launch beginner_tutorials _launch.py message:=<desired_message> message_freq:=<desired_message_frequency>
 ```
 
+## Running rqt_console
+```
+ros2 run rqt_console rqt_console
+```
+
 ## Clang format for Google, cpplint, and cppcheck Instructions
 ```bash
 # run clang-format
