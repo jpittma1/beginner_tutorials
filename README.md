@@ -66,16 +66,6 @@ Jerry Pittman, MBA, PMP - Naval Submarine Officer and USNA Instructor
   mkdir results -p && cpplint --filter="-legal/copyright" $( find . -name *.cpp | grep -vE -e "^./build/" ) &> results/cpplint
 
 ```
-## Build & Run ROS2 Package Instructions
-```bash
-# Build the code:
-cd ~/ros2_ws
-colcon build --packages-select beginner_tutorials
-# Source setup.bash inside of install folder:
-source install/setup.bash
-
-
-```
 
 ## Building for code coverage
 
