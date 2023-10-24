@@ -35,7 +35,10 @@ Jerry Pittman, MBA, PMP - Naval Submarine Officer and USNA Instructor
 #Terminal 2:
     source install/setup.bash
     ros2 run beginner_tutorials talker
+```
 
+## Service/Client to Change String in Talker
+```bash
 #Terminal 3: 
     ros2 service call /change_string beginner_tutorials/srv/ChangeString "{after: <new_string>}"
 ```
