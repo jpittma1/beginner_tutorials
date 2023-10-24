@@ -34,7 +34,7 @@ using namespace std::chrono_literals;
 MinimalPublisher::MinimalPublisher(const std::string &node_name,
                                    std::string topic_name)
     : Node(node_name) {
-
+  
   timer_ = this->create_wall_timer(
         500ms, std::bind(&MinimalPublisher::timer_callback, this));
 
@@ -45,6 +45,8 @@ MinimalPublisher::MinimalPublisher(const std::string &node_name,
                                 std::placeholders::_1, std::placeholders::_2));
   auto message = std_msgs::msg::String();
   message_.data = "Blink-182 rocks! ";
+
+  RCLCPP_DEBUG(this->get_logger(), "Starting the publisher...");
 }
 
 /**
