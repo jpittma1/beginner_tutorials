@@ -5,7 +5,9 @@ ENPM808X UMD-CP MAGE Fall 2023 Homework - ROS 2 Beginner Tutorials (C++)
 Modified Beginner_tutorial for EMPM808X. Uses C++ and ROS2 Humble. <br>
 Adds custom message to the publisher. <br>
 Makes the ros_tutorials meet Google C++ standards, passes cpplint, and cppcheck. <br>
-Dependencies are: std_msgs, rclcpp.
+Dependencies are: std_msgs, rclcpp. <br>
+Adds service client. <br>
+Adds launch file.
 
 ## Author
 Jerry Pittman, MBA, PMP - Naval Submarine Officer and USNA Instructor
