@@ -72,3 +72,15 @@ ros2 run rqt_console rqt_console
   mkdir results -p && cpplint --filter=-build/c++11,+build/c++17,-build/namespaces,-build/include_order --filter="-legal/copyright" $( find . -name *.cpp | grep -vE -e "^./build/" ) &> results/cpplint
 
 ```
+## Build and run tests using Colcon
+```bash
+# run publisher and subscriber as described above
+
+# run test (from workspace i.e. ros2_ws)
+  colcon test --ctest-args tests
+  colcon test --event-handlers console_direct+ --packages-select beginner_tutorials
+
+# examine test results
+  colcon test-result --all --verbose
+
+```

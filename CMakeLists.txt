@@ -38,4 +38,16 @@ ament_export_dependencies(rosidl_default_runtime)
 rosidl_target_interfaces(talker
   ${PROJECT_NAME} "rosidl_typesupport_cpp")
 
+if(BUILD_TESTING)
+  find_package(ament_cmake_gtest REQUIRED)
+  ament_add_gtest(${PROJECT_NAME}_tutorial_test test/tutorial_test.cpp)
+  target_include_directories(${PROJECT_NAME}_tutorial_test PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+  )
+  ament_target_dependencies(${PROJECT_NAME}_tutorial_test
+    std_msgs
+  )
+  target_link_libraries(${PROJECT_NAME}_tutorial_test name_of_local_library)
+endif()
 ament_package()
