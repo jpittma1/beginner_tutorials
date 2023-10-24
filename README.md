@@ -7,7 +7,8 @@ Adds custom message to the publisher. <br>
 Makes the ros_tutorials meet Google C++ standards, passes cpplint, and cppcheck. <br>
 Dependencies are: std_msgs, rclcpp. <br>
 Adds service client. <br>
-Adds launch file.
+Adds launch file. <br>
+Modify Talker node to broadcast a tf frame called /talk with parent /world
 
 ## Author
 Jerry Pittman, MBA, PMP - Naval Submarine Officer and USNA Instructor
@@ -72,6 +73,15 @@ ros2 run rqt_console rqt_console
   mkdir results -p && cpplint --filter=-build/c++11,+build/c++17,-build/namespaces,-build/include_order --filter="-legal/copyright" $( find . -name *.cpp | grep -vE -e "^./build/" ) &> results/cpplint
 
 ```
+
+## tf2 Tools
+```bash
+# Using tf2 echo
+ros2 run tf2_ros tf2_echo world talk
+# tf2 View Frames
+ros2 run tf2_tools view_frames
+```
+
 ## Build and run tests using Colcon
 ```bash
 # run publisher and subscriber as described above

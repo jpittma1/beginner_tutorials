@@ -46,10 +46,11 @@ MinimalPublisher::MinimalPublisher(const std::string& node_name,
   service_ = this->create_service<beginner_tutorials::srv::ChangeString>(
       "change_string", std::bind(&MinimalPublisher::change_string, this,
                                  std::placeholders::_1, std::placeholders::_2));
-  // auto message = std_msgs::msg::String();
-  // message_.data = "Blink-182 rocks! ";
+  
+  MinimalPublisher::tf_static_broadcaster_  =
+    std::make_shared<tf2_ros::StaticTransformBroadcaster>(this);
 
-  // RCLCPP_DEBUG(this->get_logger(), "Starting the publisher...");
+  this->make_transforms();
 }
 
 /**
@@ -77,6 +78,26 @@ void MinimalPublisher::change_string(
   response->status = "STRING CHANGED!";
   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "sending back response: [%s]",
               response->status.c_str());
+}
+
+void MinimalPublisher::make_transforms() {
+  geometry_msgs::msg::TransformStamped t;
+
+  t.header.stamp = this->get_clock()->now();
+  t.header.frame_id = "world";
+  t.child_frame_id = "talk";
+
+  t.transform.translation.x = 1;
+  t.transform.translation.y = 1;
+  t.transform.translation.z = 0;
+  tf2::Quaternion q;
+  q.setRPY(0, 0, 10);
+  t.transform.rotation.x = q.x();
+  t.transform.rotation.y = q.y();
+  t.transform.rotation.z = q.z();
+  t.transform.rotation.w = q.w();
+
+  tf_static_broadcaster_->sendTransform(t);
 }
 
 int main(int argc, char* argv[]) {

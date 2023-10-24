@@ -16,6 +16,10 @@
 #include <string>
 // #include <chrono_literals>
 
+#include "geometry_msgs/msg/transform_stamped.hpp"
+#include "tf2/LinearMath/Quaternion.h"
+#include "tf2_ros/static_transform_broadcaster.h"
+
 #include "beginner_tutorials/srv/change_string.hpp"
 
 using namespace std::chrono_literals;
@@ -47,4 +51,7 @@ class MinimalPublisher : public rclcpp::Node {
           request,
       std::shared_ptr<beginner_tutorials::srv::ChangeString::Response>
           response);
+
+  void make_transforms();
+  std::shared_ptr<tf2_ros::StaticTransformBroadcaster> tf_static_broadcaster_;
 };
