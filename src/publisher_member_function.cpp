@@ -21,7 +21,7 @@ MinimalPublisher::MinimalPublisher(const std::string& node_name,
     : Node(node_name) {
   // Declaring parameters
   this->declare_parameter("message", "Blink-182 rocks!");
-  this->declare_parameter("message_freq", 700);
+  this->declare_parameter("message_freq", 1000);
 
   // Reading from parameters
   message_.data = this->get_parameter("message").as_string();
@@ -31,7 +31,7 @@ MinimalPublisher::MinimalPublisher(const std::string& node_name,
   if (pub_freq < 500) {
     RCLCPP_FATAL(this->get_logger(), "Too high of frequency, aborting...");
     exit(2);
-  } else if (!(pub_freq < 500) && (pub_freq < 600)) {
+  } else if (pub_freq < 700) {
     RCLCPP_ERROR(this->get_logger(), "Better publish frequency!");
   } else {
     RCLCPP_DEBUG(this->get_logger(), "Starting the publisher...");
