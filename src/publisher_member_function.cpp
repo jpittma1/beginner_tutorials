@@ -23,22 +23,17 @@
 
 #include <publisher.hpp>
 
-// #include "beginner_tutorials"
-// #include "beginner_tutorials/srv/change_string.hpp"
-// #include "beginner_tutorials/srv/change_string.h"
-// #include "ChangString.srv"
-// #include "srv/ChangString.srv"
-
-// #include "msg/string.hpp"
 using namespace std::chrono_literals;
 
+/**
+ * @brief Construct a new Minimal Publisher:: Minimal Publisher object
+ * 
+ * @param node_name 
+ * @param topic_name 
+ */
 MinimalPublisher::MinimalPublisher(const std::string &node_name,
                                    std::string topic_name)
     : Node(node_name) {
-  // Declaring parameters
-  // this->declare_parameter("my_message", "blink-182!");
-  // Receiving Parameters
-  // message_.data = this->get_parameter("my_message").as_string();
 
   timer_ = this->create_wall_timer(
         500ms, std::bind(&MinimalPublisher::timer_callback, this));
@@ -52,11 +47,21 @@ MinimalPublisher::MinimalPublisher(const std::string &node_name,
   message_.data = "Blink-182 rocks! ";
 }
 
+/**
+ * @brief timer_callback
+ * 
+ */
 void MinimalPublisher::timer_callback() {
   RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", message_.data.c_str());
   publisher_->publish(message_);
 }
 
+/**
+ * @brief change_string service
+ * 
+ * @param request 
+ * @param response 
+ */
 void MinimalPublisher::change_string(const std::shared_ptr<beginner_tutorials::srv::ChangeString::Request> request,
       std::shared_ptr<beginner_tutorials::srv::ChangeString::Response> response) {
   message_.data = request->after;

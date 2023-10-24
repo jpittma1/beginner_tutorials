@@ -1,3 +1,13 @@
+/**
+ * @file publisher.hpp
+ * @author Jerry Pittman, Jr. (jpittma1@umd.edu)
+ * @brief 
+ * @version 0.1
+ * @date 2023-10-24
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
 #include <memory>
 #include <string>
 #include <rclcpp/rclcpp.hpp>
@@ -5,8 +15,18 @@
 
 #include "beginner_tutorials/srv/change_string.hpp"
 
+/**
+ * @brief  MinimalPublisher Class
+ * 
+ */
 class MinimalPublisher : public rclcpp::Node {
  public:
+    /**
+     * @brief Construct a new Minimal Publisher object
+     * 
+     * @param node_name 
+     * @param topic_name 
+     */
     MinimalPublisher(const std::string &node_name, std::string topic_name);
 
 
