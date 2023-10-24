@@ -4,9 +4,9 @@
  * @brief listener
  * @version 0.1
  * @date 2023-10-24
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 #include <functional>
 #include <memory>
@@ -14,11 +14,10 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
-
 using std::placeholders::_1;
 /**
  * @brief MinimalSubscriber Class
- * 
+ *
  */
 class MinimalSubscriber : public rclcpp::Node {
  public:
