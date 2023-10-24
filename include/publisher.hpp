@@ -1,7 +1,7 @@
 /**
  * @file publisher.hpp
  * @author Jerry Pittman, Jr. (jpittma1@umd.edu)
- * @brief 
+ * @brief header file for talker
  * @version 0.1
  * @date 2023-10-24
  * 
@@ -12,8 +12,13 @@
 #include <string>
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/string.hpp>
+#include <functional>
+#include <chrono>
+// #include <chrono_literals>
 
 #include "beginner_tutorials/srv/change_string.hpp"
+
+using namespace std::chrono_literals;
 
 /**
  * @brief  MinimalPublisher Class
