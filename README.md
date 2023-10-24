@@ -25,6 +25,11 @@ Jerry Pittman, MBA, PMP - Naval Submarine Officer and USNA Instructor
 # Source setup.bash inside of install folder:
     source install/setup.bash
 
+#Terminal 1:
+    ros2 run beginner_tutorials listener
+
+#Terminal 2:
+    ros2 run beginner_tutorials talker
 
 ```
 ## Doxygen Documentation, cpplint, cppcheck, and cmake build Instructions
