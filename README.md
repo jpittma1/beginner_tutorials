@@ -21,7 +21,7 @@ Jerry Pittman, MBA, PMP - Naval Submarine Officer and USNA Instructor
 
   ```
 
-## Build & Run ROS2 Package Instructions
+## Build & Run ROS2 Package Instructions (ros2 run)
 
 ```bash
 # Build the code:
@@ -36,6 +36,8 @@ Jerry Pittman, MBA, PMP - Naval Submarine Officer and USNA Instructor
     source install/setup.bash
     ros2 run beginner_tutorials talker
 
+#Terminal 3: 
+    ros2 service call /change_string beginner_tutorials/srv/ChangeString "{after: <new_string>}"
 ```
 
 ## Clang format for Google, cpplint, and cppcheck Instructions
