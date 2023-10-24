@@ -10,7 +10,7 @@ Dependencies are: std_msgs, rclcpp.
 ## Author
 Jerry Pittman, MBA, PMP - Naval Submarine Officer and USNA Instructor
 
-## Download, Doxygen Documentation, cpplint, cppcheck, and cmake build Instructions
+## Download and Dependencies Instructions
 
 ```bash
 # Download the code in workspace's src folder:
