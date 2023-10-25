@@ -8,7 +8,8 @@ Makes the ros_tutorials meet Google C++ standards, passes cpplint, and cppcheck.
 Dependencies are: std_msgs, rclcpp. <br>
 Adds service client. <br>
 Adds launch file. <br>
-Modify Talker node to broadcast a tf frame called /talk with parent /world
+Modify Talker node to broadcast a tf frame called /talk with parent /world <br>
+Using gtest (GoogleTest) to create a Level 2 integration test.
 
 ## Author
 Jerry Pittman, MBA, PMP - Naval Submarine Officer and USNA Instructor
@@ -84,7 +85,7 @@ ros2 run tf2_tools view_frames
 
 ## Build and run tests using Colcon
 ```bash
-# run publisher and subscriber as described above
+# run publisher as described above
 
 # run test (from workspace i.e. ros2_ws)
   colcon test --ctest-args tests
