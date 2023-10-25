@@ -9,7 +9,7 @@
  *
  */
 #include <signal.h>
-
+// #include <chrono_literals>
 #include <chrono>
 #include <cstdlib>
 #include <exception>
@@ -20,10 +20,7 @@
 
 #include <std_msgs/msg/string.hpp>
 
-// #include <chrono_literals>
-
 #include "beginner_tutorials/srv/change_string.hpp"
-
 #include "geometry_msgs/msg/transform_stamped.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "tf2/LinearMath/Quaternion.h"
@@ -36,47 +33,48 @@
  * @param topic_name
  */
 class MinimalPublisher : public rclcpp::Node {
-public:
+ public:
   std::string message = "Blink-182 rocks!";
   int message_freq = 1000;
 
   MinimalPublisher() : Node("minimal_publisher"), count_(0) {
-  // Declaring parameters
-  this->declare_parameter("message", "Blink-182 rocks!");
-  this->declare_parameter("message_freq", 1000);
+    // Declaring parameters
+    this->declare_parameter("message", "Blink-182 rocks!");
+    this->declare_parameter("message_freq", 1000);
 
-  // Reading from parameters
-  message_.data = this->get_parameter("message").as_string();
-  int pub_freq = this->get_parameter("message_freq").as_int();
+    // Reading from parameters
+    message_.data = this->get_parameter("message").as_string();
+    int pub_freq = this->get_parameter("message_freq").as_int();
 
-  // For Logging Printouts
-  if (pub_freq < 500) {
-    RCLCPP_FATAL(this->get_logger(), "Too high of frequency, aborting...");
-    exit(2);
-  } else if (pub_freq < 700) {
-    RCLCPP_ERROR(this->get_logger(), "Better publish frequency!");
-  } else {
-    RCLCPP_DEBUG(this->get_logger(), "Starting the publisher...");
+    // For Logging Printouts
+    if (pub_freq < 500) {
+      RCLCPP_FATAL(this->get_logger(), "Too high of frequency, aborting...");
+      exit(2);
+    } else if (pub_freq < 700) {
+      RCLCPP_ERROR(this->get_logger(), "Better publish frequency!");
+    } else {
+      RCLCPP_DEBUG(this->get_logger(), "Starting the publisher...");
+    }
+
+    timer_ = this->create_wall_timer(
+        std::chrono::milliseconds(pub_freq),
+        std::bind(&MinimalPublisher::timer_callback, this));
+
+    publisher_ = this->create_publisher<std_msgs::msg::String>("chatter", 10);
+
+    auto serviceCallbackPtr =
+        std::bind(&MinimalPublisher::change_string, this, std::placeholders::_1,
+                  std::placeholders::_2);
+    service_ = this->create_service<beginner_tutorials::srv::ChangeString>(
+        "change_string", serviceCallbackPtr);
+
+    MinimalPublisher::tf_static_broadcaster_ =
+        std::make_shared<tf2_ros::StaticTransformBroadcaster>(this);
+
+    this->make_transforms();
   }
 
-  timer_ = this->create_wall_timer(
-      std::chrono::milliseconds(pub_freq),
-      std::bind(&MinimalPublisher::timer_callback, this));
-
-  publisher_ = this->create_publisher<std_msgs::msg::String>("chatter", 10);
-  
-  auto serviceCallbackPtr =
-        std::bind(&MinimalPublisher::change_string, this,
-                  std::placeholders::_1, std::placeholders::_2);
-  service_ = this->create_service<beginner_tutorials::srv::ChangeString>(
-      "change_string", serviceCallbackPtr);
-  
-  MinimalPublisher::tf_static_broadcaster_  =
-    std::make_shared<tf2_ros::StaticTransformBroadcaster>(this);
-
-  this->make_transforms();
-}
-private:
+ private:
   /**
    * @brief timer_callback
    *
@@ -93,12 +91,13 @@ private:
    * @param response
    */
   void change_string(
-    const std::shared_ptr<beginner_tutorials::srv::ChangeString::Request>
-        request,
-    std::shared_ptr<beginner_tutorials::srv::ChangeString::Response> response) {
+      const std::shared_ptr<beginner_tutorials::srv::ChangeString::Request>
+          request,
+      std::shared_ptr<beginner_tutorials::srv::ChangeString::Response>
+          response) {
     message_.data = request->after;
-    RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "Incoming request\nnew_string: %s",
-                request->after.c_str());
+    RCLCPP_WARN(rclcpp::get_logger("rclcpp"),
+                "Incoming request\nnew_string: %s", request->after.c_str());
     response->status = "STRING CHANGED!";
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "sending back response: [%s]",
                 response->status.c_str());
@@ -135,8 +134,7 @@ private:
 
 int main(int argc, char* argv[]) {
   rclcpp::init(argc, argv);
-  rclcpp::spin(
-      std::make_shared<MinimalPublisher>());
+  rclcpp::spin(std::make_shared<MinimalPublisher>());
   rclcpp::shutdown();
   return 0;
 }
