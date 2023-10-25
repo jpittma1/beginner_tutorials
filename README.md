@@ -9,7 +9,7 @@ Dependencies are: std_msgs, rclcpp. <br>
 Adds service client. <br>
 Adds launch file. <br>
 Modify Talker node to broadcast a tf frame called /talk with parent /world <br>
-Using gtest (GoogleTest) to create a Level 2 integration test.
+Using gtest (GoogleTest) to create a Level 2 integration tests. Test Publisher and Subscriber.
 
 ## Author
 Jerry Pittman, MBA, PMP - Naval Submarine Officer and USNA Instructor
@@ -85,13 +85,13 @@ ros2 run tf2_tools view_frames
 
 ## Build and run tests using Colcon
 ```bash
-# run publisher as described above
-
-# run test (from workspace i.e. ros2_ws)
-  colcon test --ctest-args tests
+# Build
+    colcon build --packages-select beginner_tutorials
+# run test (from workspace i.e. ros2_ws); without verbose
+  colcon test --packages-select beginner_tutorials
+# with verbose
   colcon test --event-handlers console_direct+ --packages-select beginner_tutorials
 
 # examine test results
-  colcon test-result --all --verbose
-
+  cat log/latest_test/beginner_tutorials/stdout_stderr.log
 ```

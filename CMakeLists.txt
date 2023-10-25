@@ -23,11 +23,26 @@ foreach(Dependency IN ITEMS ${THIS_PACKAGE_INCLUDE_DEPENDS})
   find_package(${Dependency} REQUIRED)
 endforeach()
 
-# include_directories(include)
-
 rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/ChangeString.srv"
 )
+
+# ################################
+# rosidl_generate_interfaces(${PROJECT_NAME}_srv
+#   "srv/ChangeString.srv"
+# )
+
+# rosidl_generate_interfaces(${PROJECT_NAME}_msg_srv "srv/ChangeString.srv")
+# ################################
+
+# ################################
+# rosidl_target_interfaces(talker
+# ${PROJECT_NAME} "rosidl_typesupport_cpp")
+
+# rosidl_target_interfaces(listener
+# ${PROJECT_NAME} "rosidl_typesupport_cpp")
+# ################################
+
 
 add_executable(talker src/publisher_member_function.cpp)
 ament_target_dependencies(talker rclcpp std_msgs tf2 tf2_ros)
@@ -37,6 +52,10 @@ ament_target_dependencies(listener rclcpp std_msgs)
 
 # add_executable(client src/change_string_client.cpp)
 # ament_target_dependencies(client rclcpp std_msgs)
+
+rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_cpp")
+target_link_libraries(talker "${cpp_typesupport_target}")
+target_link_libraries(listener "${cpp_typesupport_target}")
 
 install(TARGETS
   talker
@@ -49,15 +68,6 @@ launch
 DESTINATION share/${PROJECT_NAME}
 )
 
-rosidl_target_interfaces(talker
-${PROJECT_NAME} "rosidl_typesupport_cpp")
-
-# rosidl_target_interfaces(client
-# ${PROJECT_NAME} "rosidl_typesupport_cpp")
-
-rosidl_target_interfaces(listener
-${PROJECT_NAME} "rosidl_typesupport_cpp")
-
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
   find_package(ament_lint_auto REQUIRED)
@@ -68,7 +78,7 @@ if(BUILD_TESTING)
   set(ament_cmake_cpplint_FOUND TRUE)
   set(ament_cmake_flake8_FOUND TRUE)
   set(ament_cmake_uncrustify_FOUND TRUE)
-  ament_lint_auto_find_test_dependencies()
+  # ament_lint_auto_find_test_dependencies()
 
   # Run all lint tests in package.xml except those listed above
   ament_lint_auto_find_test_dependencies()

@@ -29,8 +29,6 @@
 #include "tf2/LinearMath/Quaternion.h"
 #include "tf2_ros/static_transform_broadcaster.h"
 
-// #include <publisher.hpp>
-
 /**
  * @brief Construct a new Minimal Publisher:: Minimal Publisher object
  *
