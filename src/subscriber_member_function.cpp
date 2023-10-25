@@ -10,7 +10,9 @@
  */
 #include <functional>
 #include <memory>
+#include <rclcpp/logging.hpp>
 
+#include "beginner_tutorials/srv/change_string.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
