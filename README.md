@@ -9,7 +9,8 @@ Dependencies are: std_msgs, rclcpp. <br>
 Adds service client. <br>
 Adds launch file. <br>
 Modify Talker node to broadcast a tf frame called /talk with parent /world <br>
-Using gtest (GoogleTest) to create a Level 2 integration tests. Test Publisher and Subscriber.
+Using gtest (GoogleTest) to create a Level 2 integration tests. Test Publisher and Subscriber. <br>
+Added/created rosbag launch file.
 
 ## Author
 Jerry Pittman, MBA, PMP - Naval Submarine Officer and USNA Instructor
@@ -50,13 +51,27 @@ Jerry Pittman, MBA, PMP - Naval Submarine Officer and USNA Instructor
 ## Run ROS2 Package Instructions Using Launch files
 
 * `message` *#the new message to be published*
-
+default_value =
 * `message_freq` *#time between successive messages in ms*
+default_value=
 
-
-To do this, execute the following command:
+# To do this, execute the following command:
 ```
 ros2 launch beginner_tutorials _launch.py message:=<desired_message> message_freq:=<desired_message_frequency>
+```
+# To Record with rosbag use "launch_rosbag.py".
+* `message` *#the new message to be published*
+default_value=Nah, Box Car Racer is better!
+* `message_freq` *#time between successive messages in ms*
+default_value=1000
+* `rosbag_record` *Bool for switching ros bag recording on/off*
+default_value= True
+```
+ros2 launch beginner_tutorials launch_rosbag.py
+```
+# To check ros bag info
+```
+ros2 bag info rosbag2_2023_10_25-15_45_40/
 ```
 
 ## Running rqt_console
